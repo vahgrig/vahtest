@@ -1,13 +1,17 @@
 #!/bin/bash
 
-# What to backup. 
-backup_files=$1
 
-# Where to backup to.
+if [ $# -eq 0 ] 
+then 
+	echo
+	echo "error:please input directory for backup"
+	echo
+	exit 1
+fi
 if [ $# -eq 1 ]
 then
-	dest="/home/vahgrig/backupfiles/"
-else 
+	dest="/home/vahgrig/backupfiles"
+else  
 	dest=$2
 fi
 if [[ -d $dest ]]
@@ -23,26 +27,25 @@ else
 		exit 1
 	fi
 fi
- 
-# Create archive filename.
-day="$(date +"%Y%m%d")"
-filename=$(basename $backup_files)
-archive_file="$filename-$day.tgz"
 
-# Print start status message.
+backup_files=$1
+
+
+
+time="$(date +"%Y%m%d_%H%M%S")"
+filename=$(basename $backup_files)
+archive_file="$filename-$time.tgz"
+
+
 echo "Backing up $backup_files to $dest/$archive_file"
-echo
-echo
-echo
-# Backup the files using tar.
+
+
 tar czf $dest/$archive_file $backup_files
 
-# Print end status message.
-echo
-echo "Backup finished"
-date
-echo "###############################################################"
-# Long listing of files in $dest to file sizes
+echo "backup is finished"
+
+
+echo "#######################END########################################"
 ls -lh $dest
 
-find $dest -type f -mtime +5 -delete 
+#find $dest -type f -mtime +5 -delete
