@@ -10,7 +10,7 @@ then
 fi
 if [ $# -eq 1 ]
 then
-	dest="/home/vahgrig/backupfiles"
+	dest="/home/backupfiles"
 else  
 	dest=$2
 fi
@@ -32,9 +32,9 @@ backup_files=$1
 
 
 
-time="$(date +"%Y%m%d_%H%M%S")"
+#time="$(date +"%Y-%m %d")"
 filename=$(basename $backup_files)
-archive_file="$filename-$time.tgz"
+archive_file="$filename-$(date +"%Y-%m-%d").tgz"
 
 
 echo "Backing up $backup_files to $dest/$archive_file"
