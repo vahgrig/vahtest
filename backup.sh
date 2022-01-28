@@ -41,7 +41,7 @@ ls -lh $dest
 #checking buckup file modifed or not 
 if [ $(ls | wc -l) -gt 1 ]
 then
-	if [ "$(curl --silent $last_file_name | md5sum)" = "$(curl --silent $curent_created_file | md5sum)" ]
+	if [[ $(md5sum $last_file_name $curent_created_file | awk '{print $1}' | uniq | wc -l) == 1 ]]
 	then 
 		echo "deleting file"
 		rm -f $curent_created_file
